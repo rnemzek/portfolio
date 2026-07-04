@@ -1,0 +1,1 @@
+import{a as p}from"./assets/hono-CETXojfR.js";import"hono";import"./assets/db-BZK6t7zM.js";import"drizzle-orm/postgres-js";import"postgres";import"drizzle-orm/pg-core";import"drizzle-orm";const f=({request:o})=>p.fetch(o);export{f as GET};
