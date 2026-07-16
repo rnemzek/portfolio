@@ -11,6 +11,9 @@ bun.log
 node_modules/
 /usr/local/lib/node_modules
 
+# AI stuff
+.codex/
+
 # SolidStart / Vite build outputs
 .solid/
 .output/
@@ -41,3 +44,4 @@ Thumbs.db
 *.db
 *.db-journal
 
+.vinxi/
