@@ -24,7 +24,14 @@ export function StreamZillaCard(props: Props) {
       <div class="sz-glow" aria-hidden="true" />
       <div class="sz-content">
         <div class="sz-header">
-          <span class="sz-logo" aria-hidden="true">▶</span>
+          <img
+            src="/streamzilla-icon.png"
+            alt=""
+            width="34"
+            height="34"
+            class="sz-logo"
+            aria-hidden="true"
+          />
           <span class="sz-name">StreamZilla</span>
           <Show
             when={props.status}
@@ -43,7 +50,8 @@ export function StreamZillaCard(props: Props) {
           </Show>
         </div>
         <p class="sz-tagline">
-          Personal streaming platform — movies, shows &amp; live channels on your own hardware.
+          Personal streaming platform — movies, shows &amp; live channels, built mobile-first
+          for iPhone, iPad &amp; Apple TV with offline downloads on the go.
         </p>
         <div class="sz-footer">
           <Show when={props.status?.online && props.status?.latencyMs != null}>

@@ -22,7 +22,13 @@ export default function Home() {
       <header class="hero">
         <div class="hero-inner">
           <div class="avatar-ring">
-            <span class="avatar-initials">RN</span>
+            <img
+              src="/profile-icon.png"
+              alt="Robert Nemzek — NZ monogram"
+              width="72"
+              height="72"
+              class="avatar-img"
+            />
           </div>
           <div class="hero-text">
             <h1 class="hero-name">Robert Nemzek</h1>
