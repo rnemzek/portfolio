@@ -1,8 +1,16 @@
-import { createAsync } from "@solidjs/router";
-import { For, Show, Suspense } from "solid-js";
+import { createAsync, query, revalidate } from "@solidjs/router";
+import { ErrorBoundary, For, Show, Suspense } from "solid-js";
 import { ProjectCard } from "~/components/ProjectCard";
+import { StreamZillaCard } from "~/components/StreamZillaCard";
 import type { DashboardPayload } from "~/types/api";
-import { getDashboard } from "~/server/actions";
+import { rpc } from "~/lib/rpc";
+
+const getDashboard = query(async (): Promise<DashboardPayload> => {
+  const res = await rpc.api.metrics.dashboard.$get();
+  if (!res.ok) throw new Error(`Dashboard RPC failed with status ${res.status}`);
+  const body = await res.json();
+  return body.data;
+}, "dashboard");
 
 export default function Home() {
   const dashboard = createAsync(() => getDashboard());
@@ -31,32 +39,55 @@ export default function Home() {
         </div>
       </header>
 
-      <Suspense fallback={<div class="loading">Loading projects…</div>}>
-        <Show when={dashboard()}>
-          {(data) => (
-            <section class="projects-section">
-              <h2 class="section-title">Projects</h2>
-              <div class="projects-grid">
-                <For each={data().projects}>
-                  {(project) => <ProjectCard project={project} />}
-                </For>
-              </div>
+      <ErrorBoundary
+        fallback={(_err, reset) => (
+          <section class="projects-section">
+            <div class="error-panel" role="alert">
+              <p class="error-title">Projects are temporarily unavailable.</p>
+              <p class="error-detail">The data service didn't respond — cached content will return shortly.</p>
+              <button
+                class="retry-btn"
+                onClick={async () => {
+                  await revalidate(getDashboard.key);
+                  reset();
+                }}
+              >
+                Retry
+              </button>
+            </div>
+          </section>
+        )}
+      >
+        <Suspense fallback={<div class="loading">Loading projects…</div>}>
+          <Show when={dashboard()}>
+            {(data) => (
+              <section class="projects-section">
+                <h2 class="section-title">Featured</h2>
+                <StreamZillaCard status={data().streaming} />
 
-              <Show when={data().uptime}>
-                {(uptime) => (
-                  <div class="uptime-banner">
-                    <span class="uptime-dot" />
-                    <span>All systems {uptime().status ?? "operational"}</span>
-                    <Show when={uptime().uptimePercent !== undefined}>
-                      <span class="uptime-pct">{uptime().uptimePercent?.toFixed(2)}% uptime</span>
-                    </Show>
-                  </div>
-                )}
-              </Show>
-            </section>
-          )}
-        </Show>
-      </Suspense>
+                <h2 class="section-title">Projects</h2>
+                <div class="projects-grid">
+                  <For each={data().projects}>
+                    {(project) => <ProjectCard project={project} />}
+                  </For>
+                </div>
+
+                <Show when={data().uptime}>
+                  {(uptime) => (
+                    <div class="uptime-banner">
+                      <span class="uptime-dot" />
+                      <span>All systems {uptime().status ?? "operational"}</span>
+                      <Show when={uptime().uptimePercent !== undefined}>
+                        <span class="uptime-pct">{uptime().uptimePercent?.toFixed(2)}% uptime</span>
+                      </Show>
+                    </div>
+                  )}
+                </Show>
+              </section>
+            )}
+          </Show>
+        </Suspense>
+      </ErrorBoundary>
     </main>
   );
 }

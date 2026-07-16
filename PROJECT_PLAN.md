@@ -25,3 +25,21 @@
 - [X] Task 4.3 - Refine UI styles to provide immediate load times with zero Virtual-DOM lag.
 - [X] Task 4.4 - UOW 04 COMPLETE
 
+## UOW 05: Data Hydration, Edge Caching & Error Resilience
+- [X] Task 5.1 - Wire up the UI components to hydrate from the type-safe Hono RPC layer instead of static mock data.
+- [X] Task 5.2 - Implement a background cron or stale-while-revalidate strategy in Hono so GitHub API rate limits never break the UI.
+- [X] Task 5.3 - Add explicit error boundaries in SolidJS to gracefully handle database or API downtime without crashing the page.
+- [X] Task 5.4 - UOW 05 COMPLETE
+
+## UOW 06: Production Hardening & Ecosystem Integration
+- [X] Task 6.1 - Configure strict security headers (CSP, X-Frame-Options) via Hono middleware.
+- [X] Task 6.2 - Build an interactive "StreamZilla" showcase card on the root hub linking directly to `https://streaming.nemzilla.net` with live status badges.
+- [X] Task 6.3 - Add OpenGraph metadata, structured JSON-LD data, and optimize image configurations for an immediate Lighthouse 100 score.
+- [X] Task 6.4 - UOW 06 COMPLETE
+
+## UOW 07: Railway Pipeline & Live Deployment
+- [X] Task 7.1 - Write the definitive production `Dockerfile` or Railway build configuration optimized for SolidStart/Hono Node runtimes.
+- [ ] Task 7.2 - Execute live database provisioning and schema push (`npm run db:push`) on the production Railway instance.
+- [X] Task 7.3 - Bind the custom subdomain `robert.nemzilla.net` within Railway and verify SSL propagation.
+- [ ] Task 7.4 - UOW 07 COMPLETE
+

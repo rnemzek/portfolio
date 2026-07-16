@@ -2,6 +2,8 @@ import { Hono } from "hono";
 import { db } from "../db";
 import { githubCache, projects } from "../schema";
 import type { DashboardPayload, ProjectProfile, UptimeSummary } from "~/types/api";
+import { isCacheStale, revalidateRepoStats } from "../services/github";
+import { getStreamingStatus } from "../services/streaming";
 
 export const metricsRouter = new Hono()
   .get("/dashboard", async (c) => {
@@ -11,6 +13,15 @@ export const metricsRouter = new Hono()
     ]);
 
     const cacheMap = new Map(allCache.map((r) => [r.repoName, r]));
+
+    // Stale-while-revalidate: serve whatever is cached immediately; kick off
+    // background refreshes for missing or expired entries (deduped and
+    // rate-limit-aware inside the service).
+    for (const p of allProjects) {
+      if (!p.repoName) continue;
+      const cached = cacheMap.get(p.repoName);
+      if (!cached || isCacheStale(cached.lastUpdated)) revalidateRepoStats(p.repoName);
+    }
 
     const projectProfiles: ProjectProfile[] = allProjects.map((p) => {
       const cached = p.repoName ? cacheMap.get(p.repoName) : null;
@@ -24,6 +35,9 @@ export const metricsRouter = new Hono()
           : null,
       };
     });
+
+    // StreamZilla origin probe — memoized in the service, degrades to offline
+    const streaming = await getStreamingStatus().catch(() => null);
 
     // Attempt uptime fetch — degrade gracefully on failure
     let uptime: UptimeSummary | null = null;
@@ -42,6 +56,6 @@ export const metricsRouter = new Hono()
       }
     }
 
-    const payload: DashboardPayload = { projects: projectProfiles, uptime };
+    const payload: DashboardPayload = { projects: projectProfiles, uptime, streaming };
     return c.json({ success: true, data: payload });
   });

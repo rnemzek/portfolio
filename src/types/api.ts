@@ -23,7 +23,14 @@ export interface UptimeSummary {
   lastChecked?: string;
 }
 
+export interface StreamingStatus {
+  online: boolean;
+  latencyMs: number | null;
+  checkedAt: string;
+}
+
 export interface DashboardPayload {
   projects: ProjectProfile[];
   uptime: UptimeSummary | null;
+  streaming: StreamingStatus | null;
 }

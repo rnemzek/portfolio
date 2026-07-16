@@ -5,10 +5,8 @@ import "./app.css";
 
 export default function App() {
   return (
-    <Router>
-      <Suspense>
-        <FileRoutes />
-      </Suspense>
+    <Router root={(props) => <Suspense>{props.children}</Suspense>}>
+      <FileRoutes />
     </Router>
   );
 }
