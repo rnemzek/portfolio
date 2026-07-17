@@ -41,12 +41,17 @@ export default function Home() {
                 nemzilla.net ↗
               </a>
             </div>
-            <p class="perf-chip">
+            <a
+              href="https://web.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="perf-chip"
+            >
               <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="currentColor">
                 <path d="M8 0a8 8 0 1 0 8 8A8 8 0 0 0 8 0Zm3.72 6.03-4.25 4.25a.75.75 0 0 1-1.06 0L4.28 8.15a.75.75 0 1 1 1.06-1.06l1.6 1.6 3.72-3.72a.75.75 0 0 1 1.06 1.06Z" />
               </svg>
               Lighthouse 100 — performance verified
-            </p>
+            </a>
           </div>
         </div>
       </header>

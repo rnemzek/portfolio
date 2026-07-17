@@ -57,3 +57,7 @@
 - [X] Task 9.5 - Implement the step-by-step mobile home-screen installation guide inside the final drawer tab.
 - [X] Task 9.6 - UOW 09 COMPLETE
 
+## UOW 10: Minor Enhancements
+- [X] Task 10.1 - Wrap the Lighthouse 100 hero badge in an anchor to `https://web.dev` opening in a new tab (`noopener noreferrer`).
+- [X] Task 10.2 - UOW 10 COMPLETE
+
