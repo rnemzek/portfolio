@@ -60,9 +60,9 @@ export function StreamZillaCard(props: Props) {
           <For each={TECH_STACK}>{(tech) => <li class="sz-pill">{tech}</li>}</For>
         </ul>
         <p class="sz-tagline">
-          Your entire media library, anywhere — stream movies, shows &amp; live channels
-          natively on iPhone, iPad &amp; Apple TV, with AI-powered discovery and true
-          offline downloads for the moments in between.
+          A multi-source media aggregator — semantic search across your entire library,
+          deep graph cross-linking between related titles, trending Google News, and
+          live sports telemetry, all native on iPhone, iPad &amp; Apple TV.
         </p>
         <div class="sz-footer">
           <Show when={props.status?.online && props.status?.latencyMs != null}>

@@ -60,5 +60,6 @@
 ## UOW 10: Minor Enhancements
 - [X] Task 10.1 - Convert the Lighthouse 100 hero chip into a validated hyperlink deep-linking to the site's PageSpeed Insights audit, opening in a new tab (`noopener noreferrer`).
 - [X] Task 10.2 - Render a horizontal row of tech-stack pills (TypeScript, Express 5, Capacitor iOS, Better-SQLite3, Anthropic AI) beneath the StreamZilla title line.
-- [X] Task 10.3 - UOW 10 COMPLETE
+- [X] Task 10.3 - Replace the StreamZilla card description with multi-source aggregator copy (semantic search, deep graph cross-linking, trending Google News, live sports telemetry).
+- [X] Task 10.4 - UOW 10 COMPLETE
 
