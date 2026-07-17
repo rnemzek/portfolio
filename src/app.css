@@ -455,6 +455,25 @@ body {
   vertical-align: 1px;
 }
 
+.sz-stack {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.sz-pill {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--accent-light);
+  padding: 0.18rem 0.6rem;
+  border: 1px solid rgba(124, 58, 237, 0.35);
+  border-radius: 999px;
+  background: rgba(124, 58, 237, 0.08);
+  white-space: nowrap;
+}
+
 .sz-tagline {
   font-size: 0.875rem;
   color: var(--muted);

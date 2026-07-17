@@ -1,10 +1,12 @@
-import { Show, createSignal } from "solid-js";
+import { For, Show, createSignal } from "solid-js";
 import type { StreamingStatus } from "~/types/api";
 import { TechDrawer } from "~/components/TechDrawer";
 
 interface Props {
   status: StreamingStatus | null;
 }
+
+const TECH_STACK = ["TypeScript", "Express 5", "Capacitor iOS", "Better-SQLite3", "Anthropic AI"];
 
 export function StreamZillaCard(props: Props) {
   const [drawerOpen, setDrawerOpen] = createSignal(false);
@@ -54,6 +56,9 @@ export function StreamZillaCard(props: Props) {
             )}
           </Show>
         </div>
+        <ul class="sz-stack" aria-label="StreamZilla tech stack">
+          <For each={TECH_STACK}>{(tech) => <li class="sz-pill">{tech}</li>}</For>
+        </ul>
         <p class="sz-tagline">
           Your entire media library, anywhere — stream movies, shows &amp; live channels
           natively on iPhone, iPad &amp; Apple TV, with AI-powered discovery and true
