@@ -6,12 +6,32 @@ interface Props {
   onClose: () => void;
 }
 
-type TabId = "architecture" | "stack" | "install";
+type TabId = "overview" | "architecture" | "stack" | "install";
 
 const TABS: { id: TabId; label: string }[] = [
+  { id: "overview", label: "Overview" },
   { id: "architecture", label: "Architecture" },
   { id: "stack", label: "Stack" },
   { id: "install", label: "Install" },
+];
+
+const FEATURES: { name: string; detail: string; leagues?: string[] }[] = [
+  {
+    name: "Relational graph mapping",
+    detail:
+      "Every title, person, and topic lives in a deep cross-linked graph — hop from a film to its cast, to related coverage, to anything else connected, in one tap.",
+  },
+  {
+    name: "Google News syndication",
+    detail:
+      "Trending headlines are syndicated from Google News and woven into the library, so coverage about what you watch surfaces right beside it.",
+  },
+  {
+    name: "Live sports telemetry",
+    detail:
+      "Real-time score and game-state blocks for the four major leagues, streaming live alongside your media.",
+    leagues: ["NFL", "NHL", "MLB", "NBA"],
+  },
 ];
 
 // StreamZilla system architecture — rendered client-side by mermaid,
@@ -61,7 +81,7 @@ const INSTALL_STEPS = [
 export function TechDrawer(props: Props) {
   const [mounted, setMounted] = createSignal(false);
   const [visible, setVisible] = createSignal(false);
-  const [tab, setTab] = createSignal<TabId>("architecture");
+  const [tab, setTab] = createSignal<TabId>("overview");
   const [diagramSvg, setDiagramSvg] = createSignal<string>();
   const [diagramFailed, setDiagramFailed] = createSignal(false);
   let closeBtn: HTMLButtonElement | undefined;
@@ -173,6 +193,36 @@ export function TechDrawer(props: Props) {
           </div>
 
           <div class="drawer-body">
+            <section
+              id="panel-overview"
+              role="tabpanel"
+              aria-labelledby="tab-overview"
+              hidden={tab() !== "overview"}
+            >
+              <p class="drawer-lead">
+                Product synopsis — what makes StreamZilla more than a media server.
+              </p>
+              <ul class="dep-list">
+                <For each={FEATURES}>
+                  {(feature) => (
+                    <li class="dep-item">
+                      <div class="dep-head">
+                        <span class="dep-name">{feature.name}</span>
+                      </div>
+                      <p class="dep-detail">{feature.detail}</p>
+                      <Show when={feature.leagues}>
+                        <div class="league-row">
+                          <For each={feature.leagues}>
+                            {(league) => <span class="league-badge">{league}</span>}
+                          </For>
+                        </div>
+                      </Show>
+                    </li>
+                  )}
+                </For>
+              </ul>
+            </section>
+
             <section
               id="panel-architecture"
               role="tabpanel"

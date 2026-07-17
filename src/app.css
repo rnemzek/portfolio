@@ -720,6 +720,24 @@ body {
   line-height: 1.55;
 }
 
+.league-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.55rem;
+}
+
+.league-badge {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--green);
+  padding: 0.16rem 0.55rem;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.08);
+}
+
 .install-steps {
   list-style: none;
   counter-reset: install;
