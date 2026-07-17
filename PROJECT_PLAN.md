@@ -47,5 +47,13 @@
 - [X] Task 8.1 - Update StreamZilla product description text to emphasize mobile platform capabilities.
 - [X] Task 8.2 - Integrate custom profile icon asset into the main portfolio hero section, replacing the text fallback.
 - [X] Task 8.3 - Position and integrate the StreamZilla logo icon within the featured spotlight card element.
-- [ ] Task 8.4 - UOW 08 COMPLETE
+- [X] Task 8.4 - UOW 08 COMPLETE
+
+## UOW 09: Visual Identity & StreamZilla Deep-Dive Engine
+- [X] Task 9.1 - Swap the profile avatar with the updated `profile-icon.png` asset and add a verified "Lighthouse 100" performance chip under the hero text.
+- [X] Task 9.2 - Update the StreamZilla card description to the modern, mobile-focused tagline text.
+- [X] Task 9.3 - Design and build a responsive SolidJS Slide-Over Drawer component attached to the StreamZilla spotlight card.
+- [X] Task 9.4 - Embed the Mermaid.js system architecture diagram and core dependency taxonomy (Anthropic AI, Capacitor iOS, Express 5, Better-SQLite3) inside the drawer.
+- [X] Task 9.5 - Implement the step-by-step mobile home-screen installation guide inside the final drawer tab.
+- [X] Task 9.6 - UOW 09 COMPLETE
 

@@ -124,6 +124,21 @@ body {
   border-color: var(--accent);
 }
 
+.perf-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.85rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--green);
+  padding: 0.25rem 0.65rem;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.07);
+}
+
 /* ── Section ── */
 .section-title {
   font-size: 0.75rem;
@@ -408,6 +423,17 @@ body {
   font-weight: 700;
   letter-spacing: -0.01em;
   margin-right: auto;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Stretched link: the card root is a <div>; this overlay makes the whole
+   surface navigate while footer controls float above it */
+.sz-name::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
 }
 
 .sz-pulse {
@@ -443,6 +469,25 @@ body {
   border-radius: 999px;
 }
 
+.sz-deepdive {
+  position: relative;
+  z-index: 2;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent-light);
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.4);
+  border-radius: 6px;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.sz-deepdive:hover {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+}
+
 .sz-cta {
   font-size: 0.825rem;
   font-weight: 600;
@@ -455,8 +500,259 @@ body {
   transform: translateX(3px);
 }
 
+/* ── Tech deep-dive drawer ── */
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(6, 6, 9, 0.65);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.drawer-backdrop.open {
+  opacity: 1;
+}
+
+.tech-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  width: min(480px, 100vw);
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  box-shadow: -12px 0 48px rgba(0, 0, 0, 0.5);
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.tech-drawer.open {
+  transform: translateX(0);
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.drawer-logo {
+  display: block;
+  border-radius: 7px;
+  border: 1px solid rgba(124, 58, 237, 0.4);
+}
+
+.drawer-title-group {
+  margin-right: auto;
+}
+
+.drawer-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.drawer-subtitle {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.drawer-close {
+  font-size: 0.9rem;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.drawer-close:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.drawer-tabs {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.75rem 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.drawer-tab {
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 0.5rem 0.85rem;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.drawer-tab:hover {
+  color: var(--text);
+}
+
+.drawer-tab.active {
+  color: var(--accent-light);
+  border-bottom-color: var(--accent);
+}
+
+.drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+}
+
+.drawer-lead {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.55;
+  margin-bottom: 1.25rem;
+}
+
+.drawer-loading {
+  font-size: 0.825rem;
+  color: var(--muted);
+  padding: 1.5rem 0;
+}
+
+.mermaid-host {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  background: var(--bg);
+}
+
+.mermaid-host svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.diagram-fallback {
+  font-size: 0.72rem;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  overflow-x: auto;
+  line-height: 1.6;
+}
+
+.dep-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dep-item {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.9rem 1.1rem;
+  background: var(--bg);
+}
+
+.dep-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.dep-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.dep-role {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+}
+
+.dep-detail {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.install-steps {
+  list-style: none;
+  counter-reset: install;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.install-step {
+  counter-increment: install;
+  position: relative;
+  padding: 0.85rem 1.1rem 0.85rem 3rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg);
+}
+
+.install-step::before {
+  content: counter(install);
+  position: absolute;
+  left: 1rem;
+  top: 0.9rem;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent-light);
+  border: 1px solid rgba(124, 58, 237, 0.4);
+  border-radius: 50%;
+  background: rgba(124, 58, 237, 0.1);
+}
+
+.step-text {
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.step-hint {
+  font-size: 0.74rem;
+  color: var(--muted);
+  margin-top: 0.25rem;
+  line-height: 1.5;
+}
+
 /* ── Responsive ── */
 @media (max-width: 600px) {
   .hero-name { font-size: 1.6rem; }
   .projects-grid { grid-template-columns: 1fr; }
+  .tech-drawer { width: 100vw; border-left: none; }
+  .drawer-tabs { padding: 0.5rem 1rem 0; }
+  .drawer-body { padding: 1.25rem 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tech-drawer,
+  .drawer-backdrop {
+    transition: none;
+  }
 }
