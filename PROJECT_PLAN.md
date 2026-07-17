@@ -64,3 +64,7 @@
 - [X] Task 10.4 - Add a "Product Synopsis" Overview tab to the Tech Drawer (relational graph mapping, Google News syndication, NFL/NHL/MLB/NBA live sports telemetry).
 - [X] Task 10.5 - UOW 10 COMPLETE
 
+## UOW 11: Copywriting Final Polish
+- [X] Task 11.1 - Insert the comprehensive architectural summary callout beneath the Product synopsis heading in the Tech Drawer Overview tab.
+- [X] Task 11.2 - UOW 11 COMPLETE
+

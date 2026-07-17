@@ -202,6 +202,13 @@ export function TechDrawer(props: Props) {
               <p class="drawer-lead">
                 Product synopsis — what makes StreamZilla more than a media server.
               </p>
+              <p class="drawer-summary">
+                An AI-powered aggregate search engine providing multi-platform streaming
+                discovery, deep relational crew cross-referencing, live multi-league sports
+                analytics, and Google News data syndication. Engineered mobile-first with a
+                high-fidelity graph interface, nested routing frameworks, and dynamic
+                availability lookup handlers.
+              </p>
               <ul class="dep-list">
                 <For each={FEATURES}>
                   {(feature) => (

@@ -648,6 +648,17 @@ body {
   margin-bottom: 1.25rem;
 }
 
+.drawer-summary {
+  font-size: 0.82rem;
+  color: var(--text);
+  line-height: 1.65;
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 1.25rem;
+  border-left: 2px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+  background: linear-gradient(90deg, rgba(124, 58, 237, 0.09), rgba(124, 58, 237, 0.02));
+}
+
 .drawer-loading {
   font-size: 0.825rem;
   color: var(--muted);
