@@ -42,7 +42,7 @@ export default function Home() {
               </a>
             </div>
             <a
-              href="https://web.dev"
+              href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Frobert.nemzilla.net"
               target="_blank"
               rel="noopener noreferrer"
               class="perf-chip"

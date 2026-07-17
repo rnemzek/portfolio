@@ -58,6 +58,6 @@
 - [X] Task 9.6 - UOW 09 COMPLETE
 
 ## UOW 10: Minor Enhancements
-- [X] Task 10.1 - Wrap the Lighthouse 100 hero badge in an anchor to `https://web.dev` opening in a new tab (`noopener noreferrer`).
+- [X] Task 10.1 - Convert the Lighthouse 100 hero chip into a validated hyperlink deep-linking to the site's PageSpeed Insights audit, opening in a new tab (`noopener noreferrer`).
 - [X] Task 10.2 - UOW 10 COMPLETE
 
