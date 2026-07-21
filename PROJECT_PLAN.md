@@ -68,3 +68,13 @@
 - [X] Task 11.1 - Insert the comprehensive architectural summary callout beneath the Product synopsis heading in the Tech Drawer Overview tab.
 - [X] Task 11.2 - UOW 11 COMPLETE
 
+## UOW 14: Interactive Resume Command Center & Dual-Engine Drawer
+- [X] Task 14.1 - Create `/src/data/resumeData.ts` single-source schema (structured object, raw JSON string, and Markdown string representations).
+- [X] Task 14.2 - Build `/src/components/ResumeDrawer.tsx` shell reusing portal, focus trap, and escape handling patterns with a 4-tab bar (`Interactive`, `Schema / JSON`, `Terminal`, `PDF`).
+- [X] Task 14.3 - Implement the `Interactive` web view in SolidJS + Tailwind with active project cross-linking (clicking project pills inside resume opens corresponding spotlight cards).
+- [X] Task 14.4 - Build the `Schema / JSON` syntax-highlighted code preview tab with one-click `Copy .json` functionality and toast feedback.
+- [X] Task 14.5 - Implement the interactive CLI `Terminal` tab with client-side shell support (`help`, `cat`, `summary`, `skills`, `clear`, `download`).
+- [X] Task 14.6 - Build the `PDF` tab embedding `/robert-nemzek-resume.pdf` alongside a persistent header action suite (`Download PDF ↗`, `Copy Markdown`, `Copy JSON`).
+- [X] Task 14.7 - Performance & accessibility audit (Lighthouse 100×4 check, mobile responsiveness to 390px, zero console warnings), doc update & close tracking.
+- [X] Task 14.8 - UOW 14 COMPLETE
+

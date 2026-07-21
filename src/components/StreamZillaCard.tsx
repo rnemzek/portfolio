@@ -112,7 +112,7 @@ export function StreamZillaCard(props: Props) {
   };
 
   return (
-    <div class="streamzilla-card" onMouseMove={handleMove}>
+    <div id="streamzilla-card" class="streamzilla-card" onMouseMove={handleMove}>
       <div class="sz-glow" aria-hidden="true" />
       <div class="sz-content">
         <div class="sz-header">

@@ -1,7 +1,8 @@
 import { createAsync, query, revalidate } from "@solidjs/router";
-import { ErrorBoundary, For, Show, Suspense } from "solid-js";
+import { ErrorBoundary, For, Show, Suspense, createSignal } from "solid-js";
 import { GridZillaCard } from "~/components/GridZillaCard";
 import { ProjectCard } from "~/components/ProjectCard";
+import { ResumeDrawer } from "~/components/ResumeDrawer";
 import { StreamZillaCard } from "~/components/StreamZillaCard";
 import type { DashboardPayload } from "~/types/api";
 import { rpc } from "~/lib/rpc";
@@ -15,6 +16,18 @@ const getDashboard = query(async (): Promise<DashboardPayload> => {
 
 export default function Home() {
   const dashboard = createAsync(() => getDashboard());
+  const [resumeOpen, setResumeOpen] = createSignal(false);
+
+  const handleResumeProjectSelect = (linkKey: string) => {
+    const card = document.getElementById(linkKey);
+    if (!card) return;
+    card.scrollIntoView({ behavior: "smooth", block: "center" });
+    card.classList.remove("spotlight-flash");
+    void card.offsetWidth; // restart the animation if it already ran once
+    card.classList.add("spotlight-flash");
+    const deepDiveBtn = card.querySelector<HTMLButtonElement>(".sz-deepdive");
+    setTimeout(() => deepDiveBtn?.click(), 450);
+  };
 
   return (
     <main class="portfolio-root">
@@ -37,9 +50,14 @@ export default function Home() {
               Full-stack engineer · TypeScript · Python · SolidJS · React · Node.js · Go · PostgreSQL · Redis · SQLite
             </p>
             <div class="hero-links">
-              <a href="/robert-nemzek-resume.pdf" target="_blank" rel="noopener noreferrer" class="hero-link">
+              <button
+                type="button"
+                class="hero-link"
+                aria-haspopup="dialog"
+                onClick={() => setResumeOpen(true)}
+              >
                 Resume ↗
-              </a>
+              </button>
               <a href="https://github.com/rnemzek" target="_blank" rel="noopener noreferrer" class="hero-link">
                 GitHub
               </a>
@@ -119,6 +137,12 @@ export default function Home() {
           </Show>
         </Suspense>
       </ErrorBoundary>
+
+      <ResumeDrawer
+        open={resumeOpen()}
+        onClose={() => setResumeOpen(false)}
+        onProjectSelect={handleResumeProjectSelect}
+      />
     </main>
   );
 }
