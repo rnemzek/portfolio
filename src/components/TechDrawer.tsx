@@ -1,9 +1,52 @@
 import { For, Show, createEffect, createSignal, on, onCleanup } from "solid-js";
 import { Portal, isServer } from "solid-js/web";
 
+export interface DrawerFeature {
+  name: string;
+  detail: string;
+  leagues?: string[];
+}
+
+export interface DrawerDependency {
+  name: string;
+  role: string;
+  detail: string;
+}
+
+export interface DrawerInstallStep {
+  step: string;
+  hint?: string;
+  href?: string;
+}
+
+export interface DrawerContent {
+  logo: string;
+  title: string;
+  ariaLabel: string;
+  overview: {
+    lead: string;
+    summary: string;
+    features: DrawerFeature[];
+  };
+  architecture: {
+    lead: string;
+    diagram: string;
+    diagramId: string;
+  };
+  stack: {
+    lead: string;
+    dependencies: DrawerDependency[];
+  };
+  install: {
+    lead: string;
+    steps: DrawerInstallStep[];
+  };
+}
+
 interface Props {
   open: boolean;
   onClose: () => void;
+  content: DrawerContent;
 }
 
 type TabId = "overview" | "architecture" | "stack" | "install";
@@ -13,69 +56,6 @@ const TABS: { id: TabId; label: string }[] = [
   { id: "architecture", label: "Architecture" },
   { id: "stack", label: "Stack" },
   { id: "install", label: "Install" },
-];
-
-const FEATURES: { name: string; detail: string; leagues?: string[] }[] = [
-  {
-    name: "Relational graph mapping",
-    detail:
-      "Every title, person, and topic lives in a deep cross-linked graph — hop from a film to its cast, to related coverage, to anything else connected, in one tap.",
-  },
-  {
-    name: "Google News syndication",
-    detail:
-      "Trending headlines are syndicated from Google News and woven into the library, so coverage about what you watch surfaces right beside it.",
-  },
-  {
-    name: "Live sports telemetry",
-    detail:
-      "Real-time score and game-state blocks for the four major leagues, streaming live alongside your media.",
-    leagues: ["NFL", "NHL", "MLB", "NBA"],
-  },
-];
-
-// StreamZilla system architecture — rendered client-side by mermaid,
-// lazy-loaded only when the drawer first opens (keeps first-load bundle lean).
-const ARCH_DIAGRAM = `flowchart TD
-  A["📱 iPhone · iPad · Apple TV"] -->|"Capacitor iOS shell"| B["StreamZilla App"]
-  B -->|"HTTPS · JSON"| C["Express 5 API"]
-  C --> D[("Better-SQLite3\nmedia library")]
-  C -->|"HLS segments"| E["Streaming engine"]
-  C -->|"metadata · discovery"| F["Anthropic AI\n(Claude API)"]
-  B -->|"offline downloads"| G[("On-device storage")]`;
-
-const DEPENDENCIES = [
-  {
-    name: "Anthropic AI",
-    role: "Intelligence layer",
-    detail:
-      "Claude-powered metadata enrichment and library discovery — natural-language search and smart recommendations across the catalog.",
-  },
-  {
-    name: "Capacitor (iOS)",
-    role: "Native shell",
-    detail:
-      "Wraps the web app in a native iOS runtime for iPhone, iPad & Apple TV — home-screen install, native media session and background audio.",
-  },
-  {
-    name: "Express 5",
-    role: "API server",
-    detail:
-      "Modern async-first Node backend serving the typed JSON API, auth, and HLS stream endpoints.",
-  },
-  {
-    name: "Better-SQLite3",
-    role: "Storage engine",
-    detail:
-      "Zero-latency synchronous SQLite bindings holding the media library index — no network round-trips, instant queries.",
-  },
-];
-
-const INSTALL_STEPS = [
-  { step: "Open streaming.nemzilla.net in Safari on your iPhone or iPad.", hint: "Safari is required — Add to Home Screen is a Safari feature." },
-  { step: "Tap the Share button (the square with an arrow) in the toolbar.", hint: "Bottom bar on iPhone, top-right on iPad." },
-  { step: "Scroll down and tap “Add to Home Screen”.", hint: "" },
-  { step: "Tap “Add” — StreamZilla appears on your home screen like a native app.", hint: "Launches full-screen with its own icon, no browser chrome." },
 ];
 
 export function TechDrawer(props: Props) {
@@ -104,7 +84,7 @@ export function TechDrawer(props: Props) {
           fontFamily: "Inter, system-ui, sans-serif",
         },
       });
-      const { svg } = await mermaid.render("sz-arch-diagram", ARCH_DIAGRAM);
+      const { svg } = await mermaid.render(props.content.architecture.diagramId, props.content.architecture.diagram);
       setDiagramSvg(svg);
     } catch {
       setDiagramFailed(true);
@@ -161,12 +141,12 @@ export function TechDrawer(props: Props) {
           classList={{ open: visible() }}
           role="dialog"
           aria-modal="true"
-          aria-label="StreamZilla tech deep-dive"
+          aria-label={props.content.ariaLabel}
         >
           <header class="drawer-header">
-            <img src="/streamzilla-icon.png" alt="" width="28" height="28" class="drawer-logo" aria-hidden="true" />
+            <img src={props.content.logo} alt="" width="28" height="28" class="drawer-logo" aria-hidden="true" />
             <div class="drawer-title-group">
-              <h2 class="drawer-title">StreamZilla</h2>
+              <h2 class="drawer-title">{props.content.title}</h2>
               <p class="drawer-subtitle">Tech deep-dive</p>
             </div>
             <button ref={closeBtn} class="drawer-close" onClick={() => props.onClose()} aria-label="Close panel">
@@ -199,18 +179,10 @@ export function TechDrawer(props: Props) {
               aria-labelledby="tab-overview"
               hidden={tab() !== "overview"}
             >
-              <p class="drawer-lead">
-                Product synopsis — what makes StreamZilla more than a media server.
-              </p>
-              <p class="drawer-summary">
-                An AI-powered aggregate search engine providing multi-platform streaming
-                discovery, deep relational crew cross-referencing, live multi-league sports
-                analytics, and Google News data syndication. Engineered mobile-first with a
-                high-fidelity graph interface, nested routing frameworks, and dynamic
-                availability lookup handlers.
-              </p>
+              <p class="drawer-lead">{props.content.overview.lead}</p>
+              <p class="drawer-summary">{props.content.overview.summary}</p>
               <ul class="dep-list">
-                <For each={FEATURES}>
+                <For each={props.content.overview.features}>
                   {(feature) => (
                     <li class="dep-item">
                       <div class="dep-head">
@@ -236,10 +208,7 @@ export function TechDrawer(props: Props) {
               aria-labelledby="tab-architecture"
               hidden={tab() !== "architecture"}
             >
-              <p class="drawer-lead">
-                End-to-end system architecture — a Capacitor-wrapped app talking to an Express 5 core
-                with SQLite-speed storage and Claude-powered discovery.
-              </p>
+              <p class="drawer-lead">{props.content.architecture.lead}</p>
               <Show
                 when={diagramSvg()}
                 fallback={
@@ -247,7 +216,7 @@ export function TechDrawer(props: Props) {
                     when={diagramFailed()}
                     fallback={<p class="drawer-loading">Rendering diagram…</p>}
                   >
-                    <pre class="diagram-fallback">{ARCH_DIAGRAM}</pre>
+                    <pre class="diagram-fallback">{props.content.architecture.diagram}</pre>
                   </Show>
                 }
               >
@@ -256,9 +225,9 @@ export function TechDrawer(props: Props) {
             </section>
 
             <section id="panel-stack" role="tabpanel" aria-labelledby="tab-stack" hidden={tab() !== "stack"}>
-              <p class="drawer-lead">Core dependency taxonomy — the four pillars under the hood.</p>
+              <p class="drawer-lead">{props.content.stack.lead}</p>
               <ul class="dep-list">
-                <For each={DEPENDENCIES}>
+                <For each={props.content.stack.dependencies}>
                   {(dep) => (
                     <li class="dep-item">
                       <div class="dep-head">
@@ -273,14 +242,16 @@ export function TechDrawer(props: Props) {
             </section>
 
             <section id="panel-install" role="tabpanel" aria-labelledby="tab-install" hidden={tab() !== "install"}>
-              <p class="drawer-lead">
-                Install StreamZilla on your home screen — no App Store required.
-              </p>
+              <p class="drawer-lead">{props.content.install.lead}</p>
               <ol class="install-steps">
-                <For each={INSTALL_STEPS}>
+                <For each={props.content.install.steps}>
                   {(s) => (
                     <li class="install-step">
-                      <p class="step-text">{s.step}</p>
+                      <Show when={s.href} fallback={<p class="step-text">{s.step}</p>}>
+                        <a href={s.href} target="_blank" rel="noopener noreferrer" class="step-text step-link">
+                          {s.step}
+                        </a>
+                      </Show>
                       <Show when={s.hint}>
                         <p class="step-hint">{s.hint}</p>
                       </Show>

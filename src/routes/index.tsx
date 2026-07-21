@@ -94,10 +94,10 @@ export default function Home() {
               <section class="projects-section">
                 <h2 class="section-title">Featured</h2>
                 <StreamZillaCard status={data().streaming} />
+                <GridZillaCard />
 
                 <h2 class="section-title">Projects</h2>
                 <div class="projects-grid">
-                  <GridZillaCard />
                   <For each={data().projects}>
                     {(project) => <ProjectCard project={project} />}
                   </For>
