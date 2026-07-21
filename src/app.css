@@ -547,15 +547,6 @@ body {
   transform: translateX(3px);
 }
 
-.step-link {
-  color: var(--accent-light);
-  text-decoration: none;
-}
-
-.step-link:hover {
-  text-decoration: underline;
-}
-
 /* ── Tech deep-dive drawer ── */
 .drawer-backdrop {
   position: fixed;

@@ -68,13 +68,20 @@ const GRIDZILLA_CONTENT: DrawerContent = {
     ],
   },
   install: {
-    lead: "GridZilla ēvolvere is a web app — no install required, just open the link.",
+    lead: "Install GridZilla ēvolvere on your home screen — no App Store required.",
     steps: [
-      { step: "Live Application", hint: "https://grid.nemzilla.net", href: "https://grid.nemzilla.net" },
       {
-        step: "Code Repository",
-        hint: "https://github.com/rnemzek/evolvere",
-        href: "https://github.com/rnemzek/evolvere",
+        step: "Open grid.nemzilla.net in Safari on your iPhone or iPad.",
+        hint: "Safari is required — Add to Home Screen is a Safari feature.",
+      },
+      {
+        step: "Tap the Share button (the square with an arrow) in the toolbar.",
+        hint: "Bottom bar on iPhone, top-right on iPad.",
+      },
+      { step: "Scroll down and tap “Add to Home Screen”." },
+      {
+        step: "Tap “Add” — GridZilla appears on your home screen like a native app.",
+        hint: "Launches full-screen with its own icon, no browser chrome.",
       },
     ],
   },
