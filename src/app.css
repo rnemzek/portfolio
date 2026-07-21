@@ -124,6 +124,10 @@ body {
   border-color: var(--accent);
 }
 
+.pointer-events-none { pointer-events: none; }
+.opacity-50 { opacity: 0.5; }
+.cursor-not-allowed { cursor: not-allowed; }
+
 .perf-chip {
   display: inline-flex;
   align-items: center;
@@ -272,6 +276,63 @@ body {
 .project-card:hover .card-arrow {
   opacity: 1;
   transform: translateX(0);
+}
+
+/* ── GridZilla card (div root, stretched link + floating GitHub link) ── */
+.gz-card {
+  position: relative;
+}
+
+.card-icon {
+  display: block;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.gz-name {
+  margin-right: auto;
+  color: inherit;
+  text-decoration: none;
+}
+
+.gz-name::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.card-pills {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.card-pill {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--accent-light);
+  padding: 0.18rem 0.6rem;
+  border: 1px solid rgba(124, 58, 237, 0.35);
+  border-radius: 999px;
+  background: rgba(124, 58, 237, 0.08);
+  white-space: nowrap;
+}
+
+.gz-github {
+  position: relative;
+  z-index: 2;
+  align-self: flex-start;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent-light);
+  text-decoration: none;
+}
+
+.gz-github:hover {
+  text-decoration: underline;
 }
 
 /* ── Uptime banner ── */

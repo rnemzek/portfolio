@@ -1,5 +1,6 @@
 import { createAsync, query, revalidate } from "@solidjs/router";
 import { ErrorBoundary, For, Show, Suspense } from "solid-js";
+import { GridZillaCard } from "~/components/GridZillaCard";
 import { ProjectCard } from "~/components/ProjectCard";
 import { StreamZillaCard } from "~/components/StreamZillaCard";
 import type { DashboardPayload } from "~/types/api";
@@ -32,12 +33,24 @@ export default function Home() {
           </div>
           <div class="hero-text">
             <h1 class="hero-name">Robert Nemzek</h1>
-            <p class="hero-tagline">Full-stack engineer · SolidJS · Go · PostgreSQL</p>
+            <p class="hero-tagline">
+              Full-stack engineer · TypeScript · Python · SolidJS · React · Node.js · Go · PostgreSQL · Redis · SQLite
+            </p>
             <div class="hero-links">
+              <a href="/robert-nemzek-resume.pdf" target="_blank" rel="noopener noreferrer" class="hero-link">
+                Resume ↗
+              </a>
               <a href="https://github.com/rnemzek" target="_blank" rel="noopener noreferrer" class="hero-link">
                 GitHub
               </a>
-              <a href="https://nemzilla.net" target="_blank" rel="noopener noreferrer" class="hero-link accent">
+              <a
+                href="https://nemzilla.net"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hero-link accent pointer-events-none opacity-50 cursor-not-allowed"
+                title="Under construction"
+                aria-disabled="true"
+              >
                 nemzilla.net ↗
               </a>
             </div>
@@ -84,6 +97,7 @@ export default function Home() {
 
                 <h2 class="section-title">Projects</h2>
                 <div class="projects-grid">
+                  <GridZillaCard />
                   <For each={data().projects}>
                     {(project) => <ProjectCard project={project} />}
                   </For>
