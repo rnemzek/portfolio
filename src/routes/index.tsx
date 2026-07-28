@@ -1,5 +1,6 @@
 import { createAsync, query, revalidate } from "@solidjs/router";
 import { ErrorBoundary, For, Show, Suspense, createSignal } from "solid-js";
+import { AgentZCard } from "~/components/AgentZCard";
 import { GridZillaCard } from "~/components/GridZillaCard";
 import { ProjectCard } from "~/components/ProjectCard";
 import { ResumeDrawer } from "~/components/ResumeDrawer";
@@ -113,6 +114,7 @@ export default function Home() {
                 <h2 class="section-title">Featured</h2>
                 <StreamZillaCard status={data().streaming} />
                 <GridZillaCard />
+                <AgentZCard />
 
                 <h2 class="section-title">Projects</h2>
                 <div class="projects-grid">

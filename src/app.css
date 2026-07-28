@@ -245,6 +245,12 @@ body {
   border: 1px solid rgba(100, 116, 139, 0.3);
 }
 
+.status-badge.dev {
+  background: rgba(245, 158, 11, 0.14);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
 .card-description {
   font-size: 0.85rem;
   color: var(--muted);

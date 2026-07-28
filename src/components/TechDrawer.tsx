@@ -19,6 +19,12 @@ export interface DrawerInstallStep {
   href?: string;
 }
 
+export interface DrawerRoadmapItem {
+  phase: string;
+  detail: string;
+  status?: "done" | "in-progress" | "planned";
+}
+
 export interface DrawerContent {
   logo: string;
   title: string;
@@ -37,9 +43,22 @@ export interface DrawerContent {
     lead: string;
     dependencies: DrawerDependency[];
   };
-  install: {
+  /**
+   * The 4th tab is polymorphic: a live/shipped project supplies `install`
+   * (walk-through steps to add it to a home screen), an in-development
+   * concept supplies `roadmap` (phased plan) instead. Exactly one should be
+   * present — `roadmap` takes priority if both are (it shouldn't happen).
+   * Keeping both optional (rather than a discriminated union) is the
+   * smallest change on top of the existing GridZilla/StreamZilla contract,
+   * which always supplies `install` and is otherwise untouched by this.
+   */
+  install?: {
     lead: string;
     steps: DrawerInstallStep[];
+  };
+  roadmap?: {
+    lead: string;
+    items: DrawerRoadmapItem[];
   };
 }
 
@@ -49,13 +68,12 @@ interface Props {
   content: DrawerContent;
 }
 
-type TabId = "overview" | "architecture" | "stack" | "install";
+type TabId = "overview" | "architecture" | "stack" | "install" | "roadmap";
 
-const TABS: { id: TabId; label: string }[] = [
+const BASE_TABS: { id: TabId; label: string }[] = [
   { id: "overview", label: "Overview" },
   { id: "architecture", label: "Architecture" },
   { id: "stack", label: "Stack" },
-  { id: "install", label: "Install" },
 ];
 
 export function TechDrawer(props: Props) {
@@ -66,6 +84,12 @@ export function TechDrawer(props: Props) {
   const [diagramFailed, setDiagramFailed] = createSignal(false);
   let closeBtn: HTMLButtonElement | undefined;
   let closeTimer: ReturnType<typeof setTimeout> | undefined;
+
+  // Reads props.content directly (not destructured) so this stays reactive
+  // if content ever changes — see RnAvatar-style destructuring pitfalls.
+  const fourthTab = (): { id: TabId; label: string } =>
+    props.content.roadmap ? { id: "roadmap", label: "Roadmap" } : { id: "install", label: "Install" };
+  const tabs = () => [...BASE_TABS, fourthTab()];
 
   const renderDiagram = async () => {
     if (isServer || diagramSvg() || diagramFailed()) return;
@@ -155,7 +179,7 @@ export function TechDrawer(props: Props) {
           </header>
 
           <div class="drawer-tabs" role="tablist" aria-label="Deep-dive sections">
-            <For each={TABS}>
+            <For each={tabs()}>
               {(t) => (
                 <button
                   role="tab"
@@ -241,24 +265,57 @@ export function TechDrawer(props: Props) {
               </ul>
             </section>
 
-            <section id="panel-install" role="tabpanel" aria-labelledby="tab-install" hidden={tab() !== "install"}>
-              <p class="drawer-lead">{props.content.install.lead}</p>
-              <ol class="install-steps">
-                <For each={props.content.install.steps}>
-                  {(s) => (
-                    <li class="install-step">
-                      <Show when={s.href} fallback={<p class="step-text">{s.step}</p>}>
-                        <a href={s.href} target="_blank" rel="noopener noreferrer" class="step-text step-link">
-                          {s.step}
-                        </a>
-                      </Show>
-                      <Show when={s.hint}>
-                        <p class="step-hint">{s.hint}</p>
-                      </Show>
-                    </li>
-                  )}
-                </For>
-              </ol>
+            <section
+              id={`panel-${fourthTab().id}`}
+              role="tabpanel"
+              aria-labelledby={`tab-${fourthTab().id}`}
+              hidden={tab() !== fourthTab().id}
+            >
+              <Show
+                when={props.content.roadmap}
+                fallback={
+                  <>
+                    <p class="drawer-lead">{props.content.install?.lead}</p>
+                    <ol class="install-steps">
+                      <For each={props.content.install?.steps ?? []}>
+                        {(s) => (
+                          <li class="install-step">
+                            <Show when={s.href} fallback={<p class="step-text">{s.step}</p>}>
+                              <a href={s.href} target="_blank" rel="noopener noreferrer" class="step-text step-link">
+                                {s.step}
+                              </a>
+                            </Show>
+                            <Show when={s.hint}>
+                              <p class="step-hint">{s.hint}</p>
+                            </Show>
+                          </li>
+                        )}
+                      </For>
+                    </ol>
+                  </>
+                }
+              >
+                {(roadmap) => (
+                  <>
+                    <p class="drawer-lead">{roadmap().lead}</p>
+                    <ul class="dep-list">
+                      <For each={roadmap().items}>
+                        {(item) => (
+                          <li class="dep-item">
+                            <div class="dep-head">
+                              <span class="dep-name">{item.phase}</span>
+                              <Show when={item.status}>
+                                <span class="dep-role">{item.status}</span>
+                              </Show>
+                            </div>
+                            <p class="dep-detail">{item.detail}</p>
+                          </li>
+                        )}
+                      </For>
+                    </ul>
+                  </>
+                )}
+              </Show>
             </section>
           </div>
         </aside>
