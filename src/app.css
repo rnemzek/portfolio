@@ -69,6 +69,7 @@ body {
   justify-content: center;
   flex-shrink: 0;
   background: var(--surface);
+  overflow: hidden;
 }
 
 .avatar-img {
@@ -77,6 +78,14 @@ body {
   border-radius: 50%;
   object-fit: cover;
   display: block;
+  /* rn-logo.svg's own artwork only fills ~44% of its viewBox (measured via
+     getBBox()) — a deliberate clearspace margin baked into the source asset,
+     not CSS padding (there is none here). object-fit alone can't reach past
+     that: it maps the *whole* image bounds onto the container, so most of
+     this 72px ring showed transparent canvas around a small centered badge.
+     Scaling the element itself (clipped by .avatar-ring's overflow: hidden
+     above) zooms past that built-in margin instead. */
+  transform: scale(2.2);
 }
 
 .hero-name {
