@@ -19,14 +19,9 @@ export function AgentZCard() {
       <div class="sz-glow" aria-hidden="true" />
       <div class="sz-content">
         <div class="sz-header">
-          <img
-            src="/agentz-logo.svg"
-            alt=""
-            width="34"
-            height="34"
-            class="sz-logo agentz-icon-slot"
-            aria-hidden="true"
-          />
+          <span class="sz-logo" aria-hidden="true">
+            <img src="/agentz-logo.svg" alt="" class="agentz-icon-slot" />
+          </span>
           {/* Stretched link: ::after covers the card, so the whole surface navigates */}
           <a
             href="https://nemzilla.net"

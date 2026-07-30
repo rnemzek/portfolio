@@ -445,17 +445,34 @@ body {
   border-radius: 9px;
   object-fit: contain;
   border: 1px solid rgba(124, 58, 237, 0.4);
+  /* Harmless for StreamZilla/GridZilla (a plain <img> has no overflowing box
+     content to clip) — needed here because AgentZCard.tsx applies this class
+     to a wrapper <span> instead, so the oversized/scaled <img> inside it
+     (see .agentz-icon-slot below) gets clipped to this 34x34 rounded box. */
+  overflow: hidden;
 }
 
-/* agentz-logo.svg is a single black-filled path with the "AgentZ" wordmark
-   cut out as transparent negative space (no separate white fill) — legible
-   on a light backdrop, where the card background shows through the letters,
-   but on this dark card the transparent cutouts just reveal more darkness
-   and the mark disappears. Inverting flips the opaque square to white
-   (matching StreamZilla's amber / GridZilla's coral badge contrast) while
-   the transparent letter-holes stay transparent, now revealing the dark
-   card *through* a white badge instead of blending into it. */
+/* agentz-logo.svg's actual artwork (measured via SVG getBBox()) only fills
+   the center 50% of its own viewBox — a built-in clearspace margin, not CSS
+   padding — so even with object-fit sized to the full 34x34 slot, the mark
+   itself rendered small and centered with visible empty space around it.
+   Scaling the image 2x (exactly compensating that 50% ratio) and letting
+   the wrapper's overflow: hidden above clip the excess zooms past that
+   margin so the badge fills the slot edge-to-edge. Also see the sibling
+   invert(1): the same SVG is a single black-filled path with the "AgentZ"
+   wordmark cut out as transparent negative space (no separate white fill) —
+   legible on a light backdrop where the page shows through the letters, but
+   on this dark card the transparent cutouts just revealed more darkness.
+   Inverting flips the opaque square to white (matching StreamZilla's amber /
+   GridZilla's coral badge contrast) while the transparent letter-holes stay
+   transparent, now revealing the dark card *through* a white badge instead
+   of blending into it. */
 .agentz-icon-slot {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(2);
   filter: invert(1);
 }
 
