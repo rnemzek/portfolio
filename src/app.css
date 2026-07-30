@@ -434,7 +434,7 @@ body {
   width: 34px;
   height: 34px;
   border-radius: 9px;
-  object-fit: cover;
+  object-fit: contain;
   border: 1px solid rgba(124, 58, 237, 0.4);
 }
 

@@ -38,7 +38,7 @@ export default function Home() {
         <div class="hero-inner">
           <div class="avatar-ring">
             <img
-              src="/profile-icon.svg"
+              src="/rn-logo.svg"
               alt="Robert Nemzek — RN monogram"
               width="72"
               height="72"
