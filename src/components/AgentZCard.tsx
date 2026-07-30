@@ -24,7 +24,7 @@ export function AgentZCard() {
             alt=""
             width="34"
             height="34"
-            class="sz-logo"
+            class="sz-logo agentz-icon-slot"
             aria-hidden="true"
           />
           {/* Stretched link: ::after covers the card, so the whole surface navigates */}

@@ -447,6 +447,18 @@ body {
   border: 1px solid rgba(124, 58, 237, 0.4);
 }
 
+/* agentz-logo.svg is a single black-filled path with the "AgentZ" wordmark
+   cut out as transparent negative space (no separate white fill) — legible
+   on a light backdrop, where the card background shows through the letters,
+   but on this dark card the transparent cutouts just reveal more darkness
+   and the mark disappears. Inverting flips the opaque square to white
+   (matching StreamZilla's amber / GridZilla's coral badge contrast) while
+   the transparent letter-holes stay transparent, now revealing the dark
+   card *through* a white badge instead of blending into it. */
+.agentz-icon-slot {
+  filter: invert(1);
+}
+
 .sz-name {
   font-size: 1.15rem;
   font-weight: 700;
