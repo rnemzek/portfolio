@@ -2,7 +2,7 @@ import { For, createSignal } from "solid-js";
 import { TechDrawer } from "~/components/TechDrawer";
 import { AGENTZ_CONTENT } from "~/data/agentzData";
 
-const TECH_STACK = ["SolidJS", "Hono", "SSE", "Anthropic Claude", "Merkle Ledger"];
+const TECH_STACK = ["TypeScript", "SolidJS", "Vite", "Hono", "AWS"];
 
 export function AgentZCard() {
   const [drawerOpen, setDrawerOpen] = createSignal(false);
@@ -20,26 +20,32 @@ export function AgentZCard() {
       <div class="sz-content">
         <div class="sz-header">
           <img
-            src="/agentz-icon.svg"
+            src="/agentz-logo.svg"
             alt=""
             width="34"
             height="34"
             class="sz-logo"
             aria-hidden="true"
           />
-          {/* No live deploy yet (nemzilla.net is under construction — see the
-              hero's disabled pill in index.tsx), so unlike GridZilla/StreamZilla
-              this is plain text, not a stretched-link anchor. */}
-          <span class="sz-name">AgentZ Studio</span>
-          <span class="status-badge dev">⚡ IN DEVELOPMENT</span>
+          {/* Stretched link: ::after covers the card, so the whole surface navigates */}
+          <a
+            href="https://nemzilla.net"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="sz-name"
+          >
+            AgentZ Studio
+          </a>
+          <span class="status-badge online">
+            <span class="sz-pulse" aria-hidden="true" /> Live
+          </span>
         </div>
         <ul class="sz-stack" aria-label="AgentZ Studio tech stack">
           <For each={TECH_STACK}>{(tech) => <li class="sz-pill">{tech}</li>}</For>
         </ul>
         <p class="sz-tagline">
-          A conversational AI Product Owner, a simulated multi-agent build swarm, and a SHA-256
-          audited governance policy engine — an Agent Trust Control Plane for orchestration you can
-          actually verify.
+          AI swarm orchestration &amp; micro-app generator — real-time web app synthesis with
+          deterministic audit logging.
         </p>
         <div class="sz-footer">
           <button
@@ -49,9 +55,14 @@ export function AgentZCard() {
           >
             Tech deep-dive
           </button>
-          <span class="sz-cta" aria-hidden="true">
-            nemzilla.net — coming soon
-          </span>
+          <a
+            href="https://nemzilla.net"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="sz-cta-link"
+          >
+            Launch nemzilla.net ↗
+          </a>
         </div>
       </div>
       <TechDrawer open={drawerOpen()} onClose={() => setDrawerOpen(false)} content={AGENTZ_CONTENT} />

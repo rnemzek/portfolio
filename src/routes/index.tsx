@@ -38,7 +38,7 @@ export default function Home() {
         <div class="hero-inner">
           <div class="avatar-ring">
             <img
-              src="/profile-icon.png?v=2"
+              src="/profile-icon.svg"
               alt="Robert Nemzek — RN monogram"
               width="72"
               height="72"
@@ -48,7 +48,7 @@ export default function Home() {
           <div class="hero-text">
             <h1 class="hero-name">Robert Nemzek</h1>
             <p class="hero-tagline">
-              Full-stack engineer · TypeScript · Python · SolidJS · React · Node.js · Go · PostgreSQL · Redis · SQLite
+              Principal Software Architect &amp; Full-Stack Engineer · TypeScript · Python · SolidJS · React · Node.js · Go · AWS
             </p>
             <div class="hero-links">
               <button
@@ -66,9 +66,7 @@ export default function Home() {
                 href="https://nemzilla.net"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="hero-link accent pointer-events-none opacity-50 cursor-not-allowed"
-                title="Under construction"
-                aria-disabled="true"
+                class="hero-link accent"
               >
                 nemzilla.net ↗
               </a>
@@ -112,9 +110,9 @@ export default function Home() {
             {(data) => (
               <section class="projects-section">
                 <h2 class="section-title">Featured</h2>
+                <AgentZCard />
                 <StreamZillaCard status={data().streaming} />
                 <GridZillaCard />
-                <AgentZCard />
 
                 <h2 class="section-title">Projects</h2>
                 <div class="projects-grid">

@@ -4,7 +4,7 @@ import { TechDrawer, type DrawerContent } from "~/components/TechDrawer";
 const TECH_STACK = ["React", "Vite", "Node.js", "Express", "SQLite", "Leaflet"];
 
 const GRIDZILLA_CONTENT: DrawerContent = {
-  logo: "/gridzilla-icon.svg",
+  logo: "/gridzilla-logo.svg",
   title: "GridZilla ēvolvere",
   ariaLabel: "GridZilla ēvolvere tech deep-dive",
   overview: {
@@ -103,7 +103,7 @@ export function GridZillaCard() {
       <div class="sz-content">
         <div class="sz-header">
           <img
-            src="/gridzilla-icon.svg"
+            src="/gridzilla-logo.svg"
             alt=""
             width="34"
             height="34"

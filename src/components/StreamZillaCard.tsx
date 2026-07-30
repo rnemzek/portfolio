@@ -9,7 +9,7 @@ interface Props {
 const TECH_STACK = ["TypeScript", "Express 5", "Capacitor iOS", "Better-SQLite3", "Anthropic AI"];
 
 const STREAMZILLA_CONTENT: DrawerContent = {
-  logo: "/streamzilla-icon.png",
+  logo: "/streamzilla-logo.svg",
   title: "StreamZilla",
   ariaLabel: "StreamZilla tech deep-dive",
   overview: {
@@ -117,7 +117,7 @@ export function StreamZillaCard(props: Props) {
       <div class="sz-content">
         <div class="sz-header">
           <img
-            src="/streamzilla-icon.png"
+            src="/streamzilla-logo.svg"
             alt=""
             width="34"
             height="34"

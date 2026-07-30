@@ -7,7 +7,7 @@ import type { DrawerContent } from "~/components/TechDrawer";
  * see TechDrawer.tsx's polymorphic-tab support.
  */
 export const AGENTZ_CONTENT: DrawerContent = {
-  logo: "/agentz-icon.svg",
+  logo: "/agentz-logo.svg",
   title: "AgentZ Studio",
   ariaLabel: "AgentZ Studio tech deep-dive",
   overview: {
